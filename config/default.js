@@ -1,4 +1,4 @@
-import dotenv from "dotenv"
+const dotenv = require( "dotenv");
 dotenv.config()
 
 const config = {
@@ -9,4 +9,4 @@ const config = {
     gmail: process.env.GMAIL,
     gmailPassword: process.env.GMAIL_PASSWORD
   };
-export default config;
+module.exports =  config;

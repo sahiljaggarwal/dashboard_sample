@@ -1,4 +1,4 @@
-import config from "../config/default.js"
+const config = require ("../config/default.js");
 
 const startServer = async (app) =>{
     try {
@@ -12,4 +12,4 @@ const startServer = async (app) =>{
     }
 }
 
-export default startServer
+module.exports =  startServer

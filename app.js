@@ -1,8 +1,8 @@
-import express from "express";
-import morgan from "morgan"
-import connectDB from "./db/connect.js"
-import startServer from "./server/server.js";
-
+const express = require("express");
+const morgan  = require("morgan");
+const connectDB = require( "./db/connect.js")
+const startServer = require("./server/server.js");
+const routes = require( "./routes/index.js")
 
 // Express App 
 const app = express();
@@ -13,7 +13,7 @@ app.use(express.json())
 
 
 // Routes 
-
+app.use(routes)
 // Database Connections
 connectDB()
 
