@@ -11,6 +11,11 @@ async function registerUser(name, email, password, role) {
     if (existingUser) {
       throw new Error('Email already registered');
     }
+    // Check if any user with "admin" role exists
+    const adminUser = await User.findOne({ role: 'admin' });
+    if (role === 'admin' && adminUser) {
+      throw new Error('An admin user already exists. Cannot create another admin user.');
+    }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -155,9 +160,9 @@ async function changePassword(userId, oldPassword, newPassword) {
   }
 }
 
-async function sendForgotPasswordOTP(email) {
+async function sendForgotPasswordOTP(email, userId) {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findById(userId);
 
     if (!user) {
       throw new Error('User not found');
@@ -182,9 +187,9 @@ async function sendForgotPasswordOTP(email) {
   }
 }
 
-async function resetPasswordWithOTP(email, otp, newPassword) {
+async function resetPasswordWithOTP( otp, newPassword, userId) {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findById(userId);
 
     if (!user) {
       throw new Error('User not found');

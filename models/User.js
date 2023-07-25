@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   verificationExpiry: {
     type: Date,
   },
-});
+},{timestamps: true});
 
 const User = mongoose.model('User', userSchema);
 
