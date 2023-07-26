@@ -1,9 +1,9 @@
-const adminService = require('../../services/adminService');
+const userService = require('../../../services/');
 
 async function deleteUserById(req, res) {
     try {
       const { userId } = req.params;
-      await adminService.deleteUserById(userId);
+      await userService.deleteUserById(userId);
       res.status(200).json({ message: 'User deleted successfully.' });
     } catch (err) {
       console.error('Error deleting user:', err);

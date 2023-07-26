@@ -4,6 +4,8 @@ const {adminController} = require('../controllers/index');
 const verifyToken = require('../middlewares/verifyToken')
 const checkRole = require('../middlewares/checkRole')
 
+
+// console.log(adminController)
 // Get All User Data
 router.get('/users', verifyToken,checkRole('admin'),adminController.getAllUserProfiles)
 
@@ -18,5 +20,9 @@ router.put('/update-user/:userId', verifyToken, checkRole('admin'), adminControl
 
 // Upload Student Data
 router.post('/add-student-data', verifyToken, checkRole('admin'), adminController.addStudentData);
+
+// Update Student Data
+router.put('/update-student-data', verifyToken, checkRole('admin'), adminController.updateStudentData);
+
 
 module.exports = router;

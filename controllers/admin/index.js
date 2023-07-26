@@ -1,13 +1,11 @@
-const createUser = require('./createUser');
-const deleteUserById = require('./deleteUserById');
-const getAllUserProfiles = require('./getAllUserProfiles');
-const updateUser = require('./updateUser')
-const addStudentData = require('./addStudentData')
+const{createUser, deleteUserById, getAllUserProfiles, updateUser} = require('./user')
+const {addStudentData, updateStudentData} =  require('./student/')
 
 module.exports = {
   createUser,
   deleteUserById,
   getAllUserProfiles,
   updateUser,
-  addStudentData
+  addStudentData,
+  updateStudentData
 };
