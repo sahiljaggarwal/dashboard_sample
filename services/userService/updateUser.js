@@ -23,6 +23,9 @@ async function updateUser(userId, updates) {
       if (updates.role) {
         user.role = updates.role;
       }
+      if (updates.password) {
+        user.password = updates.password;
+      }
   
       // Save the updated user
       await user.save();

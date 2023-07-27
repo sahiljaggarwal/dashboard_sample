@@ -1,6 +1,8 @@
-const userService = require('../../../services/');
+const {userService }= require('../../../services/');
+// const userService = require('../../../services/userService');
 
-async function createUser(req, res) {
+
+async function createUserController(req, res) {
     try {
       const { name, email, password, role, isVerified } = req.body;
   
@@ -14,4 +16,4 @@ async function createUser(req, res) {
     }
   }
 
-module.exports = createUser;
+module.exports = createUserController;

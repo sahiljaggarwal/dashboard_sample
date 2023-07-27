@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const User = require('./User')
+// const User = mongoose.model('User');
 
 const studentSchema = new mongoose.Schema({
     user:{
@@ -17,7 +19,17 @@ const studentSchema = new mongoose.Schema({
     },
     email: {
         type:  String,
-        required: true
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+        validate: {
+            validator: function (value) {
+              const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+              return emailRegex.test(value);
+            },
+            message: (props) => `${props.value} is not a valid email address`,
+          },
     },
     profilePhoto: {
         type: String,
@@ -41,6 +53,9 @@ const studentSchema = new mongoose.Schema({
         type: String,
 
         trim: true,
+    },
+    role:{
+        type: String
     },
     contactNo: {
         type: Number,
@@ -135,6 +150,12 @@ const studentSchema = new mongoose.Schema({
 
 }, {timestamps: true})
 
+// Function to fetch user by ID
+// async function getUserById(userId) {
+//     const User = mongoose.model('User');
+//     return User.findById(userId);
+//   }
+
 // Pre-save middleware to calculate and set the age
 studentSchema.pre('save', function (next) {
     if (this.birthday) {
@@ -150,6 +171,23 @@ studentSchema.pre('save', function (next) {
     next();
 });
 
+// Pre-save middleware to check if email is modified and sync it with the User model
+studentSchema.pre('save', async function (next) {
+    if (this.isModified('email')) {
+      try {
+        const user = await User.findOne(this.user);
+        if (user) {
+          user.email = this.email;
+          await user.save();
+        }
+      } catch (err) {
+        throw err;
+      }
+    }
+    next();
+  });
+
 const Student = mongoose.model('Student', studentSchema);
 
+// module.exports = {Student, getUserById};
 module.exports = Student;

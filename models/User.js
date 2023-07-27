@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Student = require('./Student')
+const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -32,7 +34,7 @@ const userSchema = new mongoose.Schema({
       },
   isVerified: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   verificationOTP: {
     type: Number,
@@ -41,6 +43,51 @@ const userSchema = new mongoose.Schema({
     type: Date,
   },
 },{timestamps: true});
+
+// Pre-save middleware to propagate email update to other models
+userSchema.pre('save', async function (next) {
+  try {
+    if (this.isModified('email')) {
+      // Update email in other models that reference this user by email
+      // Assuming you have a model called `Student` that references the email field
+      // Replace `Student` with the actual model name and `email` with the appropriate field name
+      await Student.updateMany({ email: this.email }, { $set: { email: this.email } });
+      // Add other models here as needed
+
+      // If you have more models to update, repeat the updateMany operation for each model
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Pre-save middleware to hash the password
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(this.password, saltRounds);
+    this.password = hashedPassword;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Pre-remove middleware to delete student record when user is deleted
+userSchema.pre('remove', async function (next) {
+  try {
+    // Find the corresponding student and delete it
+    await Student.deleteOne({ user: this._id });
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 const User = mongoose.model('User', userSchema);
 

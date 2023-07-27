@@ -10,9 +10,10 @@ async function addStudentData(email, firstName, lastName,  motherName, fatherNam
         throw new Error('User not found');
       }
   
+
       // Create a new student record
       const student = new Student({
-        email,
+        email:user.email,
         user: user._id, // Set the email as the _id of the corresponding User
         firstName,
         lastName,
@@ -22,7 +23,8 @@ async function addStudentData(email, firstName, lastName,  motherName, fatherNam
         city,
         profilePhoto,
         gender,
-        courseApplied
+        courseApplied,
+        role: user.role
       });
   
       // Save the student record to the database

@@ -1,4 +1,4 @@
-const userService = require('../../../services/');
+const {userService} = require('../../../services/');
 
 // Get All User Information && And Specific User Role Information
 async function getAllUserProfiles(req, res) {

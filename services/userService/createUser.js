@@ -29,4 +29,4 @@ async function createUser(name, email, password, role, isVerified) {
     }
   }
 
-module.exports = createUser
+module.exports = createUser;

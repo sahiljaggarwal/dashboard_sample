@@ -1,16 +1,18 @@
-const studentService = require('../../../services/studentService');
+const { studentService } = require('../../../services');
 
-async function updateStudentData(req, res, next) {
+async function updateStudentData(req, res) {
   try {
-    const userId = req.user.id;
-    const updatedData = req.body;
+    const { userId, firstName, lastName, motherName, fatherName, contactNo, city, profilePhoto, gender, courseApplied } = req.body;
 
-    const updatedStudent = await studentService.updateStudentData(userId, updatedData);
+    // Update student data and sync changes with the User model
+    const updatedStudent = await studentService.updateStudentData(userId,  firstName, lastName, motherName, fatherName, contactNo, city, profilePhoto, gender, courseApplied);
 
-    res.json({ success: true, data: updatedStudent });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res.status(200).json({ message: 'Student data updated successfully', updatedStudent });
+  } catch (err) {
+    console.error('Error updating student data:', err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 
 module.exports = updateStudentData;
+
