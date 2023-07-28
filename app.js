@@ -10,6 +10,7 @@ const app = express();
 // Middlewares
 app.use(morgan("combined"))
 app.use(express.json()) 
+app.use('/uploads', express.static('uploads'));
 
 
 // Routes 

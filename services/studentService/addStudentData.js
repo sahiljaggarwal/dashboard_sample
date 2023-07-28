@@ -36,5 +36,5 @@ async function addStudentData(email, firstName, lastName,  motherName, fatherNam
     }
   }
 
-module.exports = addStudentData
+module.exports = addStudentData;
   

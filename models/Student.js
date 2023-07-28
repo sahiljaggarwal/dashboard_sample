@@ -171,21 +171,25 @@ studentSchema.pre('save', function (next) {
     next();
 });
 
-// Pre-save middleware to check if email is modified and sync it with the User model
-studentSchema.pre('save', async function (next) {
-    if (this.isModified('email')) {
-      try {
-        const user = await User.findOne(this.user);
-        if (user) {
-          user.email = this.email;
-          await user.save();
-        }
-      } catch (err) {
-        throw err;
-      }
-    }
-    next();
-  });
+/// Pre-save middleware to check if email is modified and sync it with the User model
+// studentSchema.pre('save', async function (next) {
+//     if (this.isModified('email')) {
+//       try {
+//         const user = await User.findOne({email: this.email});
+//         if (user) {
+//           user.user = user._id;
+//           await user.save();
+//           console.log('Email updated in User model:', user.email);
+//         } else {
+//           console.log('User not found in User model');
+//         }
+//       } catch (err) {
+//         console.error('Error updating email in User model:', err);
+//         next(err);
+//       }
+//     }
+//     next();
+//   });
 
 const Student = mongoose.model('Student', studentSchema);
 

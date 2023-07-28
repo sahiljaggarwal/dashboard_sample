@@ -3,8 +3,8 @@ const studentService = require('../../../services/studentService');
 async function addStudentData(req, res) {
   try {
     // Get the data from the request body
-    const { email, firstName, lastName, motherName, fatherName, contactNo, city, profilePhoto, gender, courseApplied } = req.body;
-
+    const { email, firstName, lastName, motherName, fatherName, contactNo, city, gender, courseApplied } = req.body;
+    const profilePhoto = req.file.filename;
     // Call the service to add student data
     const student = await studentService.addStudentData(email, firstName, lastName,  motherName, fatherName, contactNo, city, profilePhoto, gender, courseApplied);
 

@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const {adminController} = require('../controllers/index');
+// const { getRoundThumbnail } = require('../controllers/admin/student');
 const verifyToken = require('../middlewares/verifyToken')
 const checkRole = require('../middlewares/checkRole')
+const uploadProfilePhoto = require('../middlewares/multerMiddleware');
 
 
 console.log(adminController.getUserById)
@@ -28,7 +30,7 @@ router.put('/update-user/:userId', verifyToken, checkRole('admin'), adminControl
 /** ADMIN STUDENT ROUTES **/
 
 // Add Student Data
-router.post('/add-student', verifyToken, checkRole('admin'), adminController.addStudentData);
+router.post('/add-student', verifyToken, checkRole('admin'),uploadProfilePhoto ,adminController.addStudentData);
 
 // Update Student Data
 router.put('/update-student', verifyToken, checkRole('admin'), adminController.updateStudentData);
@@ -38,6 +40,9 @@ router.get('/students', verifyToken,checkRole('admin'),adminController.getAllStu
 
 // Get Student By Id
 router.get('/student/:studentId', verifyToken,checkRole('admin'),adminController.getStudentDataById)
+
+// Get Student Profile Thumbnail
+router.get('/student/thumbnail/:userId', verifyToken, checkRole('admin'), adminController.getRoundThumbnail);
 
 
 module.exports = router;

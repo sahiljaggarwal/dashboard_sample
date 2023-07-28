@@ -49,12 +49,8 @@ userSchema.pre('save', async function (next) {
   try {
     if (this.isModified('email')) {
       // Update email in other models that reference this user by email
-      // Assuming you have a model called `Student` that references the email field
-      // Replace `Student` with the actual model name and `email` with the appropriate field name
-      await Student.updateMany({ email: this.email }, { $set: { email: this.email } });
+      await Student.updateMany({ user: this._id }, { $set: { email: this.email } });
       // Add other models here as needed
-
-      // If you have more models to update, repeat the updateMany operation for each model
     }
     next();
   } catch (err) {
@@ -62,6 +58,7 @@ userSchema.pre('save', async function (next) {
   }
 });
 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 // Pre-save middleware to hash the password
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
