@@ -30,10 +30,10 @@ router.put('/update-user/:userId', verifyToken, checkRole('admin'), adminControl
 /** ADMIN STUDENT ROUTES **/
 
 // Add Student Data
-router.post('/add-student', verifyToken, checkRole('admin'),uploadProfilePhoto ,adminController.addStudentData);
+router.post('/student/add-student', verifyToken, checkRole('admin'),uploadProfilePhoto ,adminController.addStudentData);
 
 // Update Student Data
-router.put('/update-student', verifyToken, checkRole('admin'), adminController.updateStudentData);
+router.put('/student/update-student/:userId', verifyToken, checkRole('admin'),uploadProfilePhoto, adminController.updateStudentData);
 
 // Get All User Data
 router.get('/students', verifyToken,checkRole('admin'),adminController.getAllStudentsData)
@@ -43,6 +43,9 @@ router.get('/student/:studentId', verifyToken,checkRole('admin'),adminController
 
 // Get Student Profile Thumbnail
 router.get('/student/thumbnail/:userId', verifyToken, checkRole('admin'), adminController.getRoundThumbnail);
+
+// Get Student Full Image
+router.get('/student/image/:studentId', verifyToken, checkRole('admin'), adminController.getFullImage)
 
 
 module.exports = router;

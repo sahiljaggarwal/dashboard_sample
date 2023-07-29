@@ -1,5 +1,5 @@
 const{createUserController, deleteUserById, getAllUserProfiles, updateUser, getUserById} = require('./user')
-const {addStudentData, updateStudentData, getAllStudentsData, getStudentDataById, getRoundThumbnail} =  require('./student/')
+const {addStudentData, updateStudentData, getAllStudentsData, getStudentDataById, getRoundThumbnail, getFullImage} =  require('./student/')
 
 module.exports = {
   createUserController,
@@ -11,5 +11,6 @@ module.exports = {
   getAllStudentsData,
   getStudentDataById, 
   getUserById,
-  getRoundThumbnail
+  getRoundThumbnail,
+  getFullImage
 };
