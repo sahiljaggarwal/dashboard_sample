@@ -5,6 +5,7 @@ const resendVerificationEmail = require('./resendVerificationEmai')
 const resetPasswordWithOTP = require('./resetPasswordWithOTP')
 const verifyUser = require('./verifyUser')
 const sendForgotPasswordOTP = require('./ sendForgotPasswordOTP')
+const logoutUser = require('./logoutUser')
 
 module.exports = {
     registerUser,
@@ -13,5 +14,6 @@ module.exports = {
     changePassword,
     sendForgotPasswordOTP,
     resetPasswordWithOTP,
-    resendVerificationEmail
+    resendVerificationEmail,
+    logoutUser
 }

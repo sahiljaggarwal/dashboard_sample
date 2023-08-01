@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/default');
+const BlacklistedToken = require('../models/BlacklistedToken');
 
-function verifyToken(req, res, next) {
+
+async function verifyToken(req, res, next) {
   const token = req.header('Authorization');
 
   if (!token) {
@@ -9,6 +11,12 @@ function verifyToken(req, res, next) {
   }
 
   try {
+        // Check if the token exists in the blacklist
+    const isBlacklisted = await BlacklistedToken.exists({ token });
+    if (isBlacklisted) {
+      return res.status(403).json({ error: 'Invalid token [Blacklist]' });
+    }
+
     const decoded = jwt.verify(token, config.secretKey);
     req.user = decoded;
     // req.userId = decoded.userId

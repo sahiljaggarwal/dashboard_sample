@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema({
   verificationExpiry: {
     type: Date,
   },
+
 },{timestamps: true});
 
 // Pre-save middleware to propagate email update to other models

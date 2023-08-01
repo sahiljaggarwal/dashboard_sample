@@ -10,6 +10,7 @@ const checkRole = require('../middlewares/checkRole')
 
  // For All Users
 router.post('/login', authController.loginUser);
+router.post('/logout', verifyToken, authController.logoutUser)
 
 // For HR & Admin Only
 router.post('/change-password', verifyToken, checkRole('admin'),authController.changePassword)
