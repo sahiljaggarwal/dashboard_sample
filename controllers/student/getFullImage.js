@@ -19,10 +19,15 @@ async function getFullImage(req, res) {
     res.set('Content-Disposition', 'inline');
 
     // Send the full image in the response
-    res.sendFile(profilePhotoPath);
+    const response ={
+      success: true,
+      data: profilePhotoPath
+    }
+    return res.sendFile(profilePhotoPath);
+    // return res.sendFile(response);
   } catch (error) {
     console.error('Error serving full image:', error);
-    res.status(500).json({ message: 'Error serving full image' });
+    return res.status(500).json({ message: 'Error serving full image', success:false });
   }
 }
 

@@ -1,15 +1,14 @@
 const {userService} = require('../../../services/');
 
 async function updateUser(req, res) {
-    const { userId } = req.params;
-    const updates = req.body;
-  
-    try {
+  try {
+      const { userId } = req.params;
+      const updates = req.body;
       const updatedUser = await userService.updateUser(userId, updates);
-      res.status(200).json({message: "user updated successfully",updatedUser});
+      return res.status(200).json({message: "user updated successfully",updatedUser, success: true});
     } catch (err) {
       console.error('Error updating user:', err);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: 'Internal server error' , success:false});
     }
   }
 

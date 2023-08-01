@@ -12,7 +12,7 @@ async function registerUser(name, email, password, role) {
         throw new Error('Email already registered');
       }
       // Check if any user with "admin" role exists
-      const adminUser = await User.findOne({ role: 'admin' });
+      const adminUser = await User.findOne({ role: 'admin' }); // isAdmin:true
       if (role === 'admin' && adminUser) {
         throw new Error('An admin user already exists. Cannot create another admin user.');
       }

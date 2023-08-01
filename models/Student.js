@@ -11,11 +11,13 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        maxlength: 20
     },
     lastName:{
         type: String,
         required: true,
         trim: true,
+        maxlength: 20
     },
     email: {
         type:  String,
@@ -39,15 +41,18 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        maxlength: 20
     },
     motherOccupation:{
         type: String,
+
 
     },
     fatherName: {
         type: String,
         required: true,
         trim: true,
+        maxlength: 20
     },
     fatherOccupation:{
         type: String,
@@ -73,8 +78,6 @@ const studentSchema = new mongoose.Schema({
     },
     parentsNo: {
         type: Number,
-
-
         trim: true,
         validate: {
             validator: function (value) {
@@ -87,7 +90,6 @@ const studentSchema = new mongoose.Schema({
     },
     residenceAddress: {
         type: String,
-
         trim: true,
     },
     city: {

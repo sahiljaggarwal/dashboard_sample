@@ -25,10 +25,15 @@ async function getRoundThumbnail(req, res) {
     res.set('Content-Disposition', 'inline');
 
     // Send the round thumbnail image in the response
-    res.send(roundedBuffer);
+    const response ={
+      success: true,
+      data: roundedBuffer
+    }
+    return res.send(roundedBuffer);
+    // return res.send(response);
   } catch (error) {
     console.error('Error generating round thumbnail:', error);
-    res.status(500).json({ message: 'Error generating round thumbnail' });
+    return res.status(500).json({ message: 'Error generating round thumbnail' , success:false});
   }
 }
 

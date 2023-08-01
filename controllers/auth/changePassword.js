@@ -7,10 +7,15 @@ async function changePassword(req, res) {
     try {
       const result = await authService.changePassword(userId, oldPassword, newPassword);
       console.log("Password Changed Successfully")
-      res.status(200).json(result);
+      const response ={
+        success: true,
+        data: result
+      }
+      // res.status(200).json(result);
+      return res.status(200).json(response);
     } catch (err) {
       console.error('Error changing password:', err);
-      res.status(400).json({ error: err.message });
+      return res.status(400).json({ error: err.message, success:false });
     }
   }
 

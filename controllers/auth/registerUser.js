@@ -6,10 +6,10 @@ async function registerUser(req, res) {
     try {
       const user = await authService.registerUser(name, email, password, role);
       console.log("account create successfully")
-      res.status(201).json({ user });
+      return res.status(201).json({ user, success: true });
     } catch (err) {
       console.error('Error registering user:', err);
-      res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal server error', success:false });
     }
   }
 

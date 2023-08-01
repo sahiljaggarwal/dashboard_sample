@@ -23,10 +23,10 @@ async function updateStudentData(req, res) {
     // Update student data and sync changes with the User model
     const updatedStudent = await studentService.updateStudentData(userId,  updates);
 
-    res.status(200).json({ message: 'Student data updated successfully', updatedStudent });
+    return res.status(200).json({ message: 'Student data updated successfully', updatedStudent, success: true });
   } catch (err) {
     console.error('Error updating student data:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error', success:false });
   }
 }
 

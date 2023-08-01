@@ -5,10 +5,14 @@ async function sendForgotPasswordOTP(req, res) {
   
     try {
       const result = await authService.sendForgotPasswordOTP(email, userId);
-      res.status(200).json(result);
+      const response ={
+        success: true,
+        data: result
+      }
+      return res.status(200).json(response);
     } catch (err) {
       console.error('Error sending forgot password OTP:', err);
-      res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal server error' , success:false});
     }
   }
 

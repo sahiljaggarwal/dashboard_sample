@@ -6,10 +6,10 @@ async function loginUser(req, res) {
     try {
       const token = await authService.loginUser(email, password);
       console.log("login sucessfully")
-      res.status(200).json({ message: "login successfully",token });
+      return res.status(200).json({ message: "login successfully",token, success: true });
     } catch (err) {
       console.error('Error during login:', err);
-      res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Invalid credentials', success:false });
     }
   }
 

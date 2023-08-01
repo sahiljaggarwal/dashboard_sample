@@ -5,10 +5,14 @@ async function verifyEmail(req, res) {
   
     try {
       const result = await authService.verifyUser(email, otp);
-      res.status(200).json(result);
+      const response ={
+        success: true,
+        data: result
+      }
+      return res.status(200).json(response);
     } catch (err) {
       console.error('Error verifying email:', err);
-      res.status(400).json({ error: err.message });
+      return res.status(400).json({ error: err.message, success: false });
     }
   }
 

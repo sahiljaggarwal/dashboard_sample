@@ -4,10 +4,15 @@ async function resendVerificationEmail(req, res) {
   
     try {
       const result = await authService.resendVerificationEmail(email);
-      res.status(200).json(result);
+      const response ={
+        success: true,
+        data: result
+      }
+      // res.status(200).json(result);
+      return res.status(200).json(response);
     } catch (err) {
       console.error('Error resending verification email:', err);
-      res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal server error' , success: false});
     }
   }
 

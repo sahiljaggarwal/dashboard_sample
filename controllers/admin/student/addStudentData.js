@@ -8,10 +8,10 @@ async function addStudentData(req, res) {
     // Call the service to add student data
     const student = await studentService.addStudentData(email, firstName, lastName,  motherName, fatherName, contactNo, city, profilePhoto, gender, courseApplied);
 
-    res.status(201).json({ message: 'Student data uploaded successfully', student });
+    return res.status(201).json({ message: 'Student data uploaded successfully', student, success: true });
   } catch (err) {
     console.error('Error uploading student data:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error', success:false });
   }
 }
 

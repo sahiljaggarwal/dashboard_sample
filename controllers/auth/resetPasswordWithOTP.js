@@ -6,10 +6,14 @@ async function resetPasswordWithOTP(req, res) {
   
     try {
       const result = await authService.resetPasswordWithOTP(userId, otp, newPassword);
-      res.status(200).json(result);
+      const response ={
+        success: true,
+        data: result
+      }
+      return res.status(200).json(response);
     } catch (err) {
-      console.error('Error resetting password with OTP:', err);
-      res.status(400).json({ error: err.message });
+      console.error('Error resetting password with OTP:', err, );
+      res.status(400).json({ error: err.message, success:false});
     }
   }
 
