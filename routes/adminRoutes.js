@@ -7,9 +7,9 @@ const checkRole = require('../middlewares/checkRole')
 const uploadProfilePhoto = require('../middlewares/multerMiddleware');
 
 
-console.log(adminController.getUserById)
+console.log(adminController.addPortfolioController)
 
-/** ADMIN USER ROUTES **/
+/*** ADMIN USER ROUTES ***/
 
 // Get All User Data
 router.get('/users', verifyToken,checkRole('admin'),adminController.getAllUserProfiles)
@@ -21,13 +21,13 @@ router.get('/user/:userId', verifyToken,checkRole('admin'),adminController.getUs
 router.delete('/delete-user/:userId', verifyToken, checkRole('admin'),adminController.deleteUserById)
 
 // Create User
-router.post('/create-user', verifyToken, checkRole('admin'),adminController.createUserController);
+router.post('/add-user', verifyToken, checkRole('admin'),adminController.createUserController);
 
 // Update User
 router.put('/update-user/:userId', verifyToken, checkRole('admin'), adminController.updateUser)
 
 
-/** ADMIN STUDENT ROUTES **/
+/*** ADMIN STUDENT ROUTES ***/
 
 // Add Student Data
 router.post('/student/add-student', verifyToken, checkRole('admin'),uploadProfilePhoto ,adminController.addStudentData);
@@ -47,5 +47,21 @@ router.get('/student/thumbnail/:userId', verifyToken, checkRole('admin'), adminC
 // Get Student Full Image
 router.get('/student/image/:studentId', verifyToken, checkRole('admin'), adminController.getFullImage)
 
+/*** ADMIN PORTFOLIO ROUTES ***/
+
+// Add Portfolio
+router.post('/portfolio/add', verifyToken,checkRole('admin'), adminController.addPortfolioController)
+
+// Get All Portfolios
+router.get('/portfolio/all', verifyToken, checkRole('admin'),adminController.getPortfoliosController)
+
+// Get Portfolios 
+router.get('/portfolio/:portfolioId', verifyToken, checkRole('admin'), adminController.getPortfolioByIdController)
+
+// Delete Portfolio
+router.delete('/portfolio/:portfolioId', verifyToken, checkRole('admin'), adminController.deletePortfolioController)
+
+// Update Portfolio
+router.put('/portfolio/:portfolioId', verifyToken, checkRole('admin'), adminController.updatePortfolioController)
 
 module.exports = router;

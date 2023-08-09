@@ -5,5 +5,5 @@ const authService = require('./authService/')
 module.exports = {
     userService,
     studentService,
-    authService
+    authService,
 }
