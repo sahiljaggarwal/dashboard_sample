@@ -2,7 +2,7 @@ const { studentService } = require('../../../services');
 
 async function updateStudentData(req, res) {
   try {
-    const userId = req.params.userId;
+    const userId = req.params.studentId;
     const profilePhoto = req.file.filename;
     const { firstName, lastName, motherName, fatherName, contactNo, city, gender, courseApplied } = req.body;
 

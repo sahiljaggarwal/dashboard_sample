@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Name is required'],
         trim: true,
       },
-      email: {
+    email: {
         type: String,
         required: [true, 'Email is required'],
         unique: true,
@@ -22,23 +22,23 @@ const userSchema = new mongoose.Schema({
           message: (props) => `${props.value} is not a valid email address`,
         },
       },
-      password: {
+    password: {
         type: String,
         required: [true, 'Password is required'],
         minlength: [6, 'Password must be at least 6 characters long'],
       },
-      role: {
+    role: {
         type: String,
         enum: ['admin', 'hr', 'teacher', 'student'],
         required: [true, 'Role is required'],
       },
-  isVerified: {
-    type: Boolean,
-    default: true,
-  },
-  verificationOTP: {
-    type: Number,
-  },
+    isVerified: {
+        type: Boolean,
+        default: true,
+      },
+    verificationOTP: {
+      type: Number,
+      },
   verificationExpiry: {
     type: Date,
   },

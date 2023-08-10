@@ -12,40 +12,44 @@ console.log(adminController.addPortfolioController)
 /*** ADMIN USER ROUTES ***/
 
 // Get All User Data
-router.get('/users', verifyToken,checkRole('admin'),adminController.getAllUserProfiles)
+router.get('/user/all', verifyToken,checkRole('admin'),adminController.getAllUserProfiles)
 
 // Get  User Data By Id
 router.get('/user/:userId', verifyToken,checkRole('admin'),adminController.getUserById)
 
 // Delete User
-router.delete('/delete-user/:userId', verifyToken, checkRole('admin'),adminController.deleteUserById)
+router.delete('/user/:userId', verifyToken, checkRole('admin'),adminController.deleteUserById)
 
 // Create User
-router.post('/add-user', verifyToken, checkRole('admin'),adminController.createUserController);
+router.post('/user/add', verifyToken, checkRole('admin'),adminController.createUser);
 
 // Update User
-router.put('/update-user/:userId', verifyToken, checkRole('admin'), adminController.updateUser)
+router.put('/user/:userId', verifyToken, checkRole('admin'), adminController.updateUser)
 
 
 /*** ADMIN STUDENT ROUTES ***/
 
 // Add Student Data
-router.post('/student/add-student', verifyToken, checkRole('admin'),uploadProfilePhoto ,adminController.addStudentData);
+router.post('/student/add', verifyToken, checkRole('admin'),uploadProfilePhoto ,adminController.addStudentData);
 
 // Update Student Data
-router.put('/student/update-student/:userId', verifyToken, checkRole('admin'),uploadProfilePhoto, adminController.updateStudentData);
+router.put('/student/:studentId', verifyToken, checkRole('admin'),uploadProfilePhoto, adminController.updateStudentData);
+
+// Delete Student Data
+router.delete('/student/:studentId', verifyToken, checkRole('admin'), adminController.deleteStudentData)
 
 // Get All User Data
-router.get('/students', verifyToken,checkRole('admin'),adminController.getAllStudentsData)
+router.get('/student/all', verifyToken,checkRole('admin'),adminController.getAllStudentsData)
 
 // Get Student By Id
 router.get('/student/:studentId', verifyToken,checkRole('admin'),adminController.getStudentDataById)
 
 // Get Student Profile Thumbnail
-router.get('/student/thumbnail/:userId', verifyToken, checkRole('admin'), adminController.getRoundThumbnail);
+router.get('/student/thumbnail/:studentId', verifyToken, checkRole('admin'), adminController.getRoundThumbnail);
 
 // Get Student Full Image
 router.get('/student/image/:studentId', verifyToken, checkRole('admin'), adminController.getFullImage)
+
 
 /*** ADMIN PORTFOLIO ROUTES ***/
 
@@ -63,5 +67,25 @@ router.delete('/portfolio/:portfolioId', verifyToken, checkRole('admin'), adminC
 
 // Update Portfolio
 router.put('/portfolio/:portfolioId', verifyToken, checkRole('admin'), adminController.updatePortfolioController)
+
+
+/*** ADMIN TEAM ROUTES ***/
+
+// Add Team Member
+router.post('/team/add', verifyToken, checkRole('admin'), adminController.addTeamMember)
+
+// Get Team List
+router.get('/team/all', verifyToken, checkRole('admin'), adminController.getTeamList)
+
+// Get Team Member Details
+router.get('/team/:teamMemberId', verifyToken, checkRole('admin'), adminController.getTeamMemberById)
+
+// Delete Team member
+router.delete('/team/:teamMemberId', verifyToken, checkRole('admin'), adminController.deleteTeamMember)
+
+// Update Team Member
+router.put('/team/:teamMemberId', verifyToken, checkRole('admin'), adminController.updateTeamMember)
+
+
 
 module.exports = router;

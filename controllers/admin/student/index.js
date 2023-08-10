@@ -4,6 +4,7 @@ const getAllStudentsData = require('./getAllStudentData')
 const getStudentDataById = require('./getStudentDataById')
 const getRoundThumbnail = require('./getRoundThumbnail')
 const getFullImage = require('./getFullImage')
+const deleteStudentData = require('./deleteStudentData')
 
 module.exports = {
     addStudentData,
@@ -11,5 +12,6 @@ module.exports = {
     getAllStudentsData,
     getStudentDataById,
     getRoundThumbnail,
-    getFullImage
+    getFullImage,
+    deleteStudentData
 }

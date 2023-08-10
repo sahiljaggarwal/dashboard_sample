@@ -1,13 +1,13 @@
-const createUserController = require('./createUser');
-const deleteUserById = require('./deleteUserById');
-const getAllUserProfiles = require('./getAllUserProfiles');
-const updateUser = require('./updateUser')
-const getUserById = require('./getUserById')
+const createUser = require('./createUserController');
+const deleteUserById = require('./deleteUserByIdController');
+const getAllUserProfiles = require('./getAllUserProfilesController');
+const updateUser = require('./updateUserController')
+const getUserById = require('./getUserByIdController')
 
 
 
 module.exports = {
-    createUserController, 
+    createUser, 
     deleteUserById,
     getAllUserProfiles,
     updateUser,

@@ -4,6 +4,7 @@ const {authController} = require('../controllers/index');
 const verifyToken = require("../middlewares/verifyToken")
 const checkRole = require('../middlewares/checkRole')
 
+// For Testing Purpose Only
 router.post('/register', authController.registerUser);
 router.post('/resend-verification', authController.resendVerificationEmail);
 router.post('/verify-email', authController.verifyEmail);

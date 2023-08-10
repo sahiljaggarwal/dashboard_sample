@@ -2,12 +2,11 @@ const  generateRoundThumbnail  = require ('../../../services/thumbnailService.js
 const Student = require ('../../../models/Student');
 const path = require('path');
 
-// Controller to serve the round thumbnail image for the user's profile photo
 async function getRoundThumbnail(req, res) {
   try {
-    // Fetch the user data from the database using the ID from the JWT token
+
     // const userId = req.user.id;
-    const userId = req.params.userId;
+    const userId = req.params.studentId;
     const user = await Student.findOne({user: userId});
 
     if (!user || !user.profilePhoto) {
