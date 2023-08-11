@@ -1,7 +1,7 @@
-const {createUser, deleteUserById, getAllUserProfiles, updateUser, getUserById} = require('./user')
-const {addStudentData, updateStudentData, getAllStudentsData, getStudentDataById, getRoundThumbnail, getFullImage, deleteStudentData} =  require('./student/')
-const {addPortfolioController, getPortfoliosController, getPortfolioByIdController, deletePortfolioController, updatePortfolioController} = require('./portfolio')
-const {addTeamMember,getTeamList, getTeamMemberById, deleteTeamMember, updateTeamMember} = require('./team')
+const {createUser, deleteUserById, getAllUserProfiles, updateUser, getUserById, searchUser} = require('./user')
+const {addStudentData, updateStudentData, getAllStudentsData, getStudentDataById, getRoundThumbnail, getFullImage, deleteStudentData, searchStudent} =  require('./student/')
+const {addPortfolioController, getPortfoliosController, getPortfolioByIdController, deletePortfolioController, updatePortfolioController, searchPortfolio} = require('./portfolio')
+const {addTeamMember,getTeamList, getTeamMemberById, deleteTeamMember, updateTeamMember, searchTeamMember} = require('./team')
 
 module.exports = {
   // Users
@@ -10,6 +10,7 @@ module.exports = {
   getAllUserProfiles,
   updateUser,
   getUserById,
+  searchUser,
 
   // Students
   addStudentData,
@@ -19,6 +20,7 @@ module.exports = {
   getStudentDataById, 
   getRoundThumbnail,
   getFullImage,
+  searchStudent,
 
   // Portfolios
   addPortfolioController,
@@ -32,5 +34,7 @@ module.exports = {
   getTeamList,
   getTeamMemberById,
   deleteTeamMember,
-  updateTeamMember
+  updateTeamMember,
+  searchTeamMember,
+  searchPortfolio
 };

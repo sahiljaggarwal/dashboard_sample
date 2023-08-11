@@ -26,6 +26,9 @@ router.post('/user/add', verifyToken, checkRole('hr'),adminController.createUser
 // Update User
 router.put('/user/:userId', verifyToken, checkRole('hr'), adminController.updateUser)
 
+// Search User
+router.get('/user',verifyToken, checkRole('hr'), adminController.searchUser)
+
 
 /*** ADMIN STUDENT ROUTES ***/
 
@@ -50,6 +53,9 @@ router.get('/student/thumbnail/:studentId', verifyToken, checkRole('hr'), adminC
 // Get Student Full Image
 router.get('/student/image/:studentId', verifyToken, checkRole('hr'), adminController.getFullImage)
 
+// Search Student
+router.get('/student', verifyToken, checkRole('hr'), adminController.searchStudent);
+
 
 /*** ADMIN PORTFOLIO ROUTES ***/
 
@@ -68,6 +74,9 @@ router.delete('/portfolio/:portfolioId', verifyToken, checkRole('hr'), adminCont
 // Update Portfolio
 router.put('/portfolio/:portfolioId', verifyToken, checkRole('hr'), adminController.updatePortfolioController)
 
+// Search Portfolio
+router.get('/portfolio', verifyToken, checkRole('hr'), adminController.searchPortfolio)
+
 
 /*** ADMIN TEAM ROUTES ***/
 
@@ -85,6 +94,9 @@ router.delete('/team/:teamMemberId', verifyToken, checkRole('hr'), adminControll
 
 // Update Team Member
 router.put('/team/:teamMemberId', verifyToken, checkRole('hr'), adminController.updateTeamMember)
+
+// Search Team Member
+router.get('/team',verifyToken, checkRole('hr'),  adminController.searchTeamMember)
 
 
 

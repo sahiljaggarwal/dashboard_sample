@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const {adminController} = require('../controllers/index');
-// const { getRoundThumbnail } = require('../controllers/admin/student');
+const searchTeamMember = require('../controllers/admin/team/searchTeamMemberController')
 const verifyToken = require('../middlewares/verifyToken')
 const checkRole = require('../middlewares/checkRole')
 const uploadProfilePhoto = require('../middlewares/multerMiddleware');
 
 
-console.log(adminController.addPortfolioController)
-
+console.log(adminController.searchTeamMember)
+console.log("routes code ")
 /*** ADMIN USER ROUTES ***/
 
 // Get All User Data
@@ -25,6 +25,9 @@ router.post('/user/add', verifyToken, checkRole('admin'),adminController.createU
 
 // Update User
 router.put('/user/:userId', verifyToken, checkRole('admin'), adminController.updateUser)
+
+// Search User
+router.get('/user',verifyToken, checkRole('admin'), adminController.searchUser)
 
 
 /*** ADMIN STUDENT ROUTES ***/
@@ -50,6 +53,8 @@ router.get('/student/thumbnail/:studentId', verifyToken, checkRole('admin'), adm
 // Get Student Full Image
 router.get('/student/image/:studentId', verifyToken, checkRole('admin'), adminController.getFullImage)
 
+// Search Student
+router.get('/student', verifyToken, checkRole('admin'), adminController.searchStudent);
 
 /*** ADMIN PORTFOLIO ROUTES ***/
 
@@ -68,6 +73,9 @@ router.delete('/portfolio/:portfolioId', verifyToken, checkRole('admin'), adminC
 // Update Portfolio
 router.put('/portfolio/:portfolioId', verifyToken, checkRole('admin'), adminController.updatePortfolioController)
 
+// Search Portfolio
+router.get('/portfolio', verifyToken, checkRole('admin'), adminController.searchPortfolio)
+
 
 /*** ADMIN TEAM ROUTES ***/
 
@@ -85,6 +93,10 @@ router.delete('/team/:teamMemberId', verifyToken, checkRole('admin'), adminContr
 
 // Update Team Member
 router.put('/team/:teamMemberId', verifyToken, checkRole('admin'), adminController.updateTeamMember)
+
+// Search Team Member
+router.get('/team',verifyToken, checkRole('admin'),  adminController.searchTeamMember)
+
 
 
 

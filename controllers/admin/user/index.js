@@ -3,7 +3,7 @@ const deleteUserById = require('./deleteUserByIdController');
 const getAllUserProfiles = require('./getAllUserProfilesController');
 const updateUser = require('./updateUserController')
 const getUserById = require('./getUserByIdController')
-
+const searchUser = require('./searchUserController')
 
 
 module.exports = {
@@ -11,5 +11,6 @@ module.exports = {
     deleteUserById,
     getAllUserProfiles,
     updateUser,
-    getUserById
+    getUserById,
+    searchUser
 }
