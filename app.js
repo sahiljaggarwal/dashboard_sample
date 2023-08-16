@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const morgan  = require("morgan");
 const connectDB = require( "./db/connect.js")
 const startServer = require("./server/server.js");
@@ -8,9 +9,16 @@ const routes = require( "./routes/index.js")
 const app = express();
 
 // Middlewares
+app.use(cors());
 app.use(morgan("combined"))
 app.use(express.json()) 
 app.use('/uploads', express.static('uploads'));
+
+// Enable CORS for specific origins
+const allowedOrigins = ['http://localhost:3000'];
+app.use(cors({
+  origin: allowedOrigins,
+}));
 
 
 // Routes 

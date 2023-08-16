@@ -2,6 +2,7 @@ const {createUser, deleteUserById, getAllUserProfiles, updateUser, getUserById, 
 const {addStudentData, updateStudentData, getAllStudentsData, getStudentDataById, getRoundThumbnail, getFullImage, deleteStudentData, searchStudent} =  require('./student/')
 const {addPortfolioController, getPortfoliosController, getPortfolioByIdController, deletePortfolioController, updatePortfolioController, searchPortfolio} = require('./portfolio')
 const {addTeamMember,getTeamList, getTeamMemberById, deleteTeamMember, updateTeamMember, searchTeamMember} = require('./team')
+const {addCourse, getAllCourse, getCourseById, updateCourse, deleteCourse} = require('./course')
 
 module.exports = {
   // Users
@@ -36,5 +37,12 @@ module.exports = {
   deleteTeamMember,
   updateTeamMember,
   searchTeamMember,
-  searchPortfolio
+  searchPortfolio,
+
+  // Course
+  addCourse,
+  getAllCourse,
+  getCourseById,
+  updateCourse,
+  deleteCourse
 };

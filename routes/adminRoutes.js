@@ -7,12 +7,13 @@ const checkRole = require('../middlewares/checkRole')
 const uploadProfilePhoto = require('../middlewares/multerMiddleware');
 
 
-console.log(adminController.searchTeamMember)
-console.log("routes code ")
+// console.log(adminController.searchTeamMember)
+// console.log("routes code ")
 /*** ADMIN USER ROUTES ***/
 
 // Get All User Data
-router.get('/user/all', verifyToken,checkRole('admin'),adminController.getAllUserProfiles)
+// router.get('/user/all', verifyToken,checkRole('admin'),adminController.getAllUserProfiles)
+router.get('/user/all',adminController.getAllUserProfiles)
 
 // Get  User Data By Id
 router.get('/user/:userId', verifyToken,checkRole('admin'),adminController.getUserById)
@@ -97,7 +98,21 @@ router.put('/team/:teamMemberId', verifyToken, checkRole('admin'), adminControll
 // Search Team Member
 router.get('/team',verifyToken, checkRole('admin'),  adminController.searchTeamMember)
 
+/*** Courses Routes ***/
 
+// Add Course
+router.post('/course/add', verifyToken, checkRole('admin'),adminController.addCourse)
 
+// Get All Courses List
+router.get('/course/all', verifyToken, checkRole('admin'), adminController.getAllCourse)
+
+// Get Course List By Id
+router.get('/course/:courseId', verifyToken, checkRole('admin'), adminController.getCourseById)
+
+// Update Course
+router.put('/course/:courseId', verifyToken, checkRole('admin'),adminController.updateCourse)
+
+// Delete Course
+router.delete('/course/:courseId',verifyToken,checkRole('admin'), adminController.deleteCourse)
 
 module.exports = router;
