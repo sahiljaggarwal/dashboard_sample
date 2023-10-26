@@ -39,9 +39,9 @@ const userSchema = new mongoose.Schema({
     verificationOTP: {
       type: Number,
       },
-  verificationExpiry: {
-    type: Date,
-  },
+    verificationExpiry: {
+      type: Date,
+     },
 
 },{timestamps: true});
 
@@ -75,6 +75,32 @@ userSchema.pre('save', async function (next) {
     next(err);
   }
 });
+
+
+// userSchema.pre('save', async function (next) {
+//   if (!this.isModified('password')) {
+//     return next();
+//   }
+
+//   try {
+//     const saltRounds = 10;
+//     const hashedPassword = await new Promise((resolve, reject) => {
+//       bcrypt.hash(this.password, saltRounds, (err, hash) => {
+//         if (err) {
+//           reject(err);
+//         } else {
+//           resolve(hash);
+//         }
+//       });
+//     });
+
+//     this.password = hashedPassword;
+//     next();
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
 
 // Pre-remove middleware to delete student record when user is deleted
 userSchema.pre('remove', async function (next) {

@@ -4,9 +4,9 @@ dotenv.config()
 const config = {
     host: process.env.HOST || 'localhost',
     port: process.env.PORT || 6000,
-    MONGODB_URL: process.env.MONGODB_URL,
-    secretKey: process.env.SECRET_KEY,
-    gmail: process.env.GMAIL,
-    gmailPassword: process.env.GMAIL_PASSWORD
+    MONGODB_URL: process.env.mongoDb,
+    secretKey: process.env.secretKey,
+    gmail: process.env.gmail,
+    gmailPassword: process.env.gmailPassword
   };
 module.exports =  config;

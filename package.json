@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "generate-swagger": "node_modules/.bin/swagger-jsdoc -d swagger.js -o public/api-docs.json"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,8 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.4",
     "nodemon": "^3.0.1",
-    "sharp": "^0.32.4"
+    "sharp": "^0.32.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }

@@ -13,12 +13,15 @@ async function loginUser(email, password) {
       }
   
          // Check if the user is verified
-         if (!user.isVerified) {
-          throw new Error('User is not verified');
-        }
+      if (!user.isVerified) {
+        throw new Error('User is not verified');
+      }
   
       // Compare the provided password with the hashed password in the database
       const isPasswordValid = await bcrypt.compare(password, user.password);
+      console.log('user password: ', password)
+      console.log('password match? : ', isPasswordValid)
+      console.log('database password: ', user.password)
       if (!isPasswordValid) {
         throw new Error('Invalid credentials');
       }
@@ -40,5 +43,6 @@ async function loginUser(email, password) {
       throw err;
     }
   }
+
 
 module.exports = loginUser;

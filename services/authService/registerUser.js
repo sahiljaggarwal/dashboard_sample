@@ -17,9 +17,6 @@ async function registerUser(name, email, password, role) {
         throw new Error('An admin user already exists. Cannot create another admin user.');
       }
   
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
       // Generate the verification OTP
         const verificationOTP = generateOTP();
   
@@ -27,7 +24,7 @@ async function registerUser(name, email, password, role) {
       const user = new User({
         name,
         email,
-        password: hashedPassword,
+        password,
         role,
         verificationOTP,
         verificationExpiry: Date.now() + 3600000, // 1 Hour 
@@ -36,7 +33,7 @@ async function registerUser(name, email, password, role) {
       await user.save();
        // Send the verification email with OTP
        const purpose = "Email Varification"
-       await sendVerificationEmail(email, verificationOTP, purpose);
+      //  await sendVerificationEmail(email, verificationOTP, purpose);
       return user;
     } catch (err) {
       console.error('Error registering user:', err);

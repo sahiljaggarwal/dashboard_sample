@@ -4,6 +4,8 @@ const morgan  = require("morgan");
 const connectDB = require( "./db/connect.js")
 const startServer = require("./server/server.js");
 const routes = require( "./routes/index.js")
+const swaggerSpec = require('./swagger.js');
+const swaggerUi = require('swagger-ui-express');
 
 // Express App 
 const app = express();
@@ -22,7 +24,11 @@ app.use(cors({
 
 
 // Routes 
-app.use(routes)
+app.use('/api/v1',routes)
+
+// Swagger Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // Database Connections
 connectDB()
 
