@@ -1,10 +1,9 @@
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const config = require("../config/default.js")
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const config = require("../config/default.js");
 
 const transporter = nodemailer.createTransport({
-  // Setup your email service provider here (e.g., Gmail, Outlook, etc.)
-  service: 'Gmail', // Set the email service provider (Gmail in this case)
+  service: "Gmail", // Set the email service provider (Gmail in this case)
   auth: {
     user: config.gmail, // Your email address
     pass: config.gmailPassword, // Your email account password or application-specific password
@@ -29,14 +28,12 @@ const sendVerificationEmail = async (email, verificationOTP, purpose) => {
 
     return otp;
   } catch (err) {
-    console.error('Error sending verification email:', err);
+    console.error("Error sending verification email:", err);
     throw err;
   }
 };
 
-
-
 module.exports = {
   sendVerificationEmail,
-  generateOTP
+  generateOTP,
 };

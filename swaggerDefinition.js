@@ -6,6 +6,24 @@ const swaggerDefinition = {
       description: 'API documentation for your Express.js application',
     },
     // Add any other Swagger definition details as needed
+    components: {
+      schemas: {
+        UserProfile: {
+          type: 'object',
+          properties: {
+            // Define the properties of the UserProfile schema here
+          },
+        },
+      },
+      responses: {
+        Unauthorized: {
+          description: 'Unauthorized',
+        },
+        NotFound: {
+          description: 'Not Found',
+        },
+      },
+    },
   };
   
   module.exports = swaggerDefinition;
