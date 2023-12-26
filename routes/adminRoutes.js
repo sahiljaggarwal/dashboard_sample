@@ -4,7 +4,9 @@ const { adminController } = require("../controllers/index");
 const searchTeamMember = require("../controllers/admin/team/searchTeamMemberController");
 const verifyToken = require("../middlewares/verifyToken");
 const checkRole = require("../middlewares/checkRole");
-const uploadProfilePhoto = require("../middlewares/multerMiddleware");
+// const uploadProfilePhoto = require("../middlewares/multerMiddleware");
+const upload = require("../middlewares/multerMiddleware");
+const multer = require("multer");
 
 // console.log(adminController.searchTeamMember)
 // console.log("routes code ")
@@ -244,7 +246,7 @@ router.put(
   "/student/:studentId",
   verifyToken,
   checkRole("admin"),
-  uploadProfilePhoto,
+  // uploadProfilePhoto,
   adminController.updateStudentData
 );
 
@@ -401,6 +403,7 @@ router.get(
 // Add Course
 router.post(
   "/course/add",
+  upload.single("course"),
   verifyToken,
   checkRole("admin"),
   adminController.addCourse

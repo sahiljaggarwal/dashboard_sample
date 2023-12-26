@@ -1,103 +1,218 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const {adminController} = require('../controllers/index');
+const { adminController } = require("../controllers/index");
 // const { getRoundThumbnail } = require('../controllers/admin/student');
-const verifyToken = require('../middlewares/verifyToken')
-const checkRole = require('../middlewares/checkRole')
-const uploadProfilePhoto = require('../middlewares/multerMiddleware');
-
+const verifyToken = require("../middlewares/verifyToken");
+const checkRole = require("../middlewares/checkRole");
+const uploadProfilePhoto = require("../middlewares/multerMiddleware");
 
 // console.log(adminController.addPortfolioController)
 
 /*** ADMIN USER ROUTES ***/
 
 // Get All User Data
-router.get('/user/all', verifyToken,checkRole('hr'),adminController.getAllUserProfiles)
+router.get(
+  "/user/all",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getAllUserProfiles
+);
 
 // Get  User Data By Id
-router.get('/user/:userId', verifyToken,checkRole('hr'),adminController.getUserById)
+router.get(
+  "/user/:userId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getUserById
+);
 
 // Delete User
-router.delete('/user/:userId', verifyToken, checkRole('hr'),adminController.deleteUserById)
+router.delete(
+  "/user/:userId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.deleteUserById
+);
 
 // Create User
-router.post('/user/add', verifyToken, checkRole('hr'),adminController.createUser);
+router.post(
+  "/user/add",
+  verifyToken,
+  checkRole("hr"),
+  adminController.createUser
+);
 
 // Update User
-router.put('/user/:userId', verifyToken, checkRole('hr'), adminController.updateUser)
+router.put(
+  "/user/:userId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.updateUser
+);
 
 // Search User
-router.get('/user',verifyToken, checkRole('hr'), adminController.searchUser)
-
+router.get("/user", verifyToken, checkRole("hr"), adminController.searchUser);
 
 /*** ADMIN STUDENT ROUTES ***/
 
 // Add Student Data
-router.post('/student/add', verifyToken, checkRole('hr'),uploadProfilePhoto ,adminController.addStudentData);
+// router.post('/student/add', verifyToken, checkRole('hr'),uploadProfilePhoto ,adminController.addStudentData);
 
 // Update Student Data
-router.put('/student/:studentId', verifyToken, checkRole('hr'),uploadProfilePhoto, adminController.updateStudentData);
+router.put(
+  "/student/:studentId",
+  verifyToken,
+  checkRole("hr"),
+  //   uploadProfilePhoto,
+  adminController.updateStudentData
+);
 
 // Delete Student Data
-router.delete('/student/:studentId', verifyToken, checkRole('hr'), adminController.deleteStudentData)
+router.delete(
+  "/student/:studentId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.deleteStudentData
+);
 
 // Get All User Data
-router.get('/student/all', verifyToken,checkRole('hr'),adminController.getAllStudentsData)
+router.get(
+  "/student/all",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getAllStudentsData
+);
 
 // Get Student By Id
-router.get('/student/:studentId', verifyToken,checkRole('hr'),adminController.getStudentDataById)
+router.get(
+  "/student/:studentId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getStudentDataById
+);
 
 // Get Student Profile Thumbnail
-router.get('/student/thumbnail/:studentId', verifyToken, checkRole('hr'), adminController.getRoundThumbnail);
+router.get(
+  "/student/thumbnail/:studentId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getRoundThumbnail
+);
 
 // Get Student Full Image
-router.get('/student/image/:studentId', verifyToken, checkRole('hr'), adminController.getFullImage)
+router.get(
+  "/student/image/:studentId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getFullImage
+);
 
 // Search Student
-router.get('/student', verifyToken, checkRole('hr'), adminController.searchStudent);
-
+router.get(
+  "/student",
+  verifyToken,
+  checkRole("hr"),
+  adminController.searchStudent
+);
 
 /*** ADMIN PORTFOLIO ROUTES ***/
 
 // Add Portfolio
-router.post('/portfolio/add', verifyToken,checkRole('hr'), adminController.addPortfolioController)
+router.post(
+  "/portfolio/add",
+  verifyToken,
+  checkRole("hr"),
+  adminController.addPortfolioController
+);
 
 // Get All Portfolios
-router.get('/portfolio/all', verifyToken, checkRole('hr'),adminController.getPortfoliosController)
+router.get(
+  "/portfolio/all",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getPortfoliosController
+);
 
-// Get Portfolios 
-router.get('/portfolio/:portfolioId', verifyToken, checkRole('hr'), adminController.getPortfolioByIdController)
+// Get Portfolios
+router.get(
+  "/portfolio/:portfolioId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getPortfolioByIdController
+);
 
 // Delete Portfolio
-router.delete('/portfolio/:portfolioId', verifyToken, checkRole('hr'), adminController.deletePortfolioController)
+router.delete(
+  "/portfolio/:portfolioId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.deletePortfolioController
+);
 
 // Update Portfolio
-router.put('/portfolio/:portfolioId', verifyToken, checkRole('hr'), adminController.updatePortfolioController)
+router.put(
+  "/portfolio/:portfolioId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.updatePortfolioController
+);
 
 // Search Portfolio
-router.get('/portfolio', verifyToken, checkRole('hr'), adminController.searchPortfolio)
-
+router.get(
+  "/portfolio",
+  verifyToken,
+  checkRole("hr"),
+  adminController.searchPortfolio
+);
 
 /*** ADMIN TEAM ROUTES ***/
 
 // Add Team Member
-router.post('/team/add', verifyToken, checkRole('hr'), adminController.addTeamMember)
+router.post(
+  "/team/add",
+  verifyToken,
+  checkRole("hr"),
+  adminController.addTeamMember
+);
 
 // Get Team List
-router.get('/team/all', verifyToken, checkRole('hr'), adminController.getTeamList)
+router.get(
+  "/team/all",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getTeamList
+);
 
 // Get Team Member Details
-router.get('/team/:teamMemberId', verifyToken, checkRole('hr'), adminController.getTeamMemberById)
+router.get(
+  "/team/:teamMemberId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.getTeamMemberById
+);
 
 // Delete Team member
-router.delete('/team/:teamMemberId', verifyToken, checkRole('hr'), adminController.deleteTeamMember)
+router.delete(
+  "/team/:teamMemberId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.deleteTeamMember
+);
 
 // Update Team Member
-router.put('/team/:teamMemberId', verifyToken, checkRole('hr'), adminController.updateTeamMember)
+router.put(
+  "/team/:teamMemberId",
+  verifyToken,
+  checkRole("hr"),
+  adminController.updateTeamMember
+);
 
 // Search Team Member
-router.get('/team',verifyToken, checkRole('hr'),  adminController.searchTeamMember)
-
-
+router.get(
+  "/team",
+  verifyToken,
+  checkRole("hr"),
+  adminController.searchTeamMember
+);
 
 module.exports = router;

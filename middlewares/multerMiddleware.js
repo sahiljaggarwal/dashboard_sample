@@ -1,39 +1,36 @@
-const multer = require('multer');
-const path = require('path');
+// multerMiddleware.js
+const multer = require("multer");
+const path = require("path");
 
-// Define storage for the uploaded files
+// Multer storage configuration
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Set the destination folder for profile photos
-    cb(null, 'uploads/profilePhotos');
+  destination: function (req, file, cb) {
+    console.log("file", file);
+    const fieldName = req.body.fieldName;
+    let uploadPath;
+
+    if (file.fieldname === "course") {
+      // uploadPath = path.join(__dirname, "../uploads/course");
+      uploadPath = "uploads/course";
+
+      console.log("uploadPath:", uploadPath);
+    } else {
+      // Handle other field names or provide a default folder
+      // uploadPath = path.join(__dirname, "../uploads/default");
+      uploadPath = "uploads/default";
+      console.log("uploadPath:", uploadPath);
+    }
+
+    cb(null, uploadPath);
   },
-  filename: (req, file, cb) => {
-    // Set the filename for the uploaded profile photo
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const extension = path.extname(file.originalname);
-    cb(null, `profilePhoto-${uniqueSuffix}${extension}`);
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const fileExtension = path.extname(file.originalname);
+    cb(null, file.fieldname + "-" + uniqueSuffix + fileExtension);
   },
 });
 
-// Define the file filter to accept only image files
-const fileFilter = (req, file, cb) => {
-  const allowedFileTypes = /jpeg|jpg|png|gif/;
-  const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = allowedFileTypes.test(file.mimetype);
-  if (extname && mimetype) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only image files are allowed!'), false);
-  }
-};
+// Multer upload instance
+const upload = multer({ storage: storage });
 
-// Create the multer middleware
-const uploadProfilePhoto = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5, // 5 MB (adjust the limit as per your requirement)
-  },
-  fileFilter: fileFilter,
-}).single('profilePhoto'); // 'profilePhoto' should match the field name in the form where the file is uploaded
-
-module.exports = uploadProfilePhoto;
+module.exports = upload;
