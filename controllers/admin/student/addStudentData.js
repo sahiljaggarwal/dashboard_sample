@@ -4,6 +4,7 @@ async function addStudentData(req, res) {
   try {
     // Get the data from the request body
     const studentData = req.body;
+    const student = req.file;
 
     // const profilePhoto = req.file.filename;
     const data = {
@@ -25,8 +26,7 @@ async function addStudentData(req, res) {
       paymentTime: studentData.paymentTime,
       paymentAmount: studentData.paymentAmount,
     };
-    const student = await studentService.addStudentData(data);
-
+    const result = await studentService.addStudentData(data, student);
     return res.status(201).json({
       message: "Student data uploaded successfully",
       // student,

@@ -14,9 +14,20 @@ const storage = multer.diskStorage({
       uploadPath = "uploads/course";
 
       console.log("uploadPath:", uploadPath);
+    } else if (file.fieldname === "coverImage") {
+      uploadPath = "uploads/cover";
+      console.log("uploadPath:", uploadPath);
+    } else if (file.fieldname === "featuredImage") {
+      uploadPath = "uploads/featured";
+      console.log("uploadPath:", uploadPath);
+    } else if (file.fieldname === "portfolio") {
+      uploadPath = "uploads/portfolio";
+      console.log("uploadPath:", uploadPath);
+    } else if (file.filename === "team") {
+      uploadPath = "uploads/team";
+    } else if (file.filename === "student") {
+      uploadPath = "uploads/student";
     } else {
-      // Handle other field names or provide a default folder
-      // uploadPath = path.join(__dirname, "../uploads/default");
       uploadPath = "uploads/default";
       console.log("uploadPath:", uploadPath);
     }

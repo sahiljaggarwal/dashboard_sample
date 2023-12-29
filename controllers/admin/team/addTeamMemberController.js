@@ -14,6 +14,7 @@ async function addTeamMember(req, res) {
       education,
       address,
     } = req.body;
+    const team = req.file.team;
 
     const memberData = {
       firstName,
@@ -28,6 +29,9 @@ async function addTeamMember(req, res) {
       address,
     };
     const savedMember = new Team(memberData);
+    if (team) {
+      savedMember.profilePhoto = `http://localhost:4000/${team[0].path}`;
+    }
     await savedMember.save();
     return res
       .status(201)

@@ -304,6 +304,11 @@ router.get(
 router.post(
   "/portfolio/add",
   verifyToken,
+  upload.fields([
+    { name: "coverImage", maxCount: 1 },
+    { name: "featuredImage", maxCount: 1 },
+    { name: "portfolio", maxCount: 1 },
+  ]),
   checkRole("admin"),
   adminController.addPortfolioController
 );
@@ -328,6 +333,11 @@ router.get(
 router.delete(
   "/portfolio/:portfolioId",
   verifyToken,
+  upload.fields([
+    { name: "coverImage", maxCount: 1 },
+    { name: "featuredImage", maxCount: 1 },
+    { name: "portfolio", maxCount: 1 },
+  ]),
   checkRole("admin"),
   adminController.deletePortfolioController
 );
@@ -336,6 +346,11 @@ router.delete(
 router.put(
   "/portfolio/:portfolioId",
   verifyToken,
+  upload.fields([
+    { name: "coverImage", maxCount: 1 },
+    { name: "featuredImage", maxCount: 1 },
+    { name: "portfolio", maxCount: 1 },
+  ]),
   checkRole("admin"),
   adminController.updatePortfolioController
 );
@@ -354,6 +369,7 @@ router.get(
 router.post(
   "/team/add",
   verifyToken,
+  upload.single("team"),
   checkRole("admin"),
   adminController.addTeamMember
 );
@@ -429,6 +445,7 @@ router.get(
 router.put(
   "/course/:courseId",
   verifyToken,
+  upload.single("course"),
   checkRole("admin"),
   adminController.updateCourse
 );
