@@ -48,16 +48,16 @@ const studentSchema = new mongoose.Schema(
       type: Number,
       required: true,
       required: [true, "Phone number is required"],
-      trim: true,
-      validate: {
-        validator: function (value) {
-          // Regular expression to validate the phone number format
-          const phoneRegex = /^\d{10}$/;
-          return phoneRegex.test(value);
-        },
-        message:
-          "Invalid phone number format. Phone number should be 10 digits long without any spaces or special characters.",
-      },
+      // trim: true,
+      // validate: {
+      //   validator: function (value) {
+      //     // Regular expression to validate the phone number format
+      //     const phoneRegex = /^\d{10}$/;
+      //     return phoneRegex.test(value);
+      //   },
+      //   message:
+      //     "Invalid phone number format. Phone number should be 10 digits long without any spaces or special characters.",
+      // },
     },
     address: {
       type: String,

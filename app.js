@@ -21,6 +21,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Enable CORS for specific origins
 const allowedOrigins = ["http://localhost:3000"];
+// const allowedOrigins = ["*"];
 app.use(
   cors({
     origin: allowedOrigins,
