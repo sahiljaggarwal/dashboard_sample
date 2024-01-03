@@ -10,9 +10,7 @@ const storage = multer.diskStorage({
     let uploadPath;
 
     if (file.fieldname === "course") {
-      // uploadPath = path.join(__dirname, "../uploads/course");
       uploadPath = "uploads/course";
-
       console.log("uploadPath:", uploadPath);
     } else if (file.fieldname === "coverImage") {
       uploadPath = "uploads/cover";
@@ -23,9 +21,10 @@ const storage = multer.diskStorage({
     } else if (file.fieldname === "portfolio") {
       uploadPath = "uploads/portfolio";
       console.log("uploadPath:", uploadPath);
-    } else if (file.filename === "team") {
+    } else if (file.fieldname === "team") {
       uploadPath = "uploads/team";
-    } else if (file.filename === "student") {
+      console.log("uploadPath:", uploadPath);
+    } else if (file.fieldname === "student") {
       uploadPath = "uploads/student";
     } else {
       uploadPath = "uploads/default";
@@ -37,7 +36,12 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     const fileExtension = path.extname(file.originalname);
-    cb(null, file.fieldname + "-" + uniqueSuffix + fileExtension);
+    const fileName = file.fieldname + "-" + uniqueSuffix + fileExtension;
+
+    if (!fileName) {
+      return cb(new Error(`Image Uploading Error`), null);
+    }
+    cb(null, fileName);
   },
 });
 

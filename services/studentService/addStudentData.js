@@ -1,7 +1,7 @@
 const User = require("../../models/User");
 const Student = require("../../models/Student");
 
-async function addStudentData(data, student) {
+async function addStudentData(data, profilePhoto) {
   try {
     const {
       firstName,
@@ -65,7 +65,7 @@ async function addStudentData(data, student) {
       paymentMethod,
     });
     if (student) {
-      student.profilePhoto = `http://localhost:4000/${student.profilePhoto}`;
+      student.profilePhoto = `http://localhost:4000/${profilePhoto}`;
     }
     await student.save();
 

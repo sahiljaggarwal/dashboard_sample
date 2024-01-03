@@ -237,6 +237,7 @@ router.get(
 router.post(
   "/student/add",
   verifyToken,
+  upload.single("student"),
   checkRole("admin"),
   adminController.addStudentData
 );
@@ -246,6 +247,7 @@ router.put(
   "/student/:studentId",
   verifyToken,
   checkRole("admin"),
+  upload.single("student"),
   // uploadProfilePhoto,
   adminController.updateStudentData
 );
@@ -402,6 +404,7 @@ router.delete(
 router.put(
   "/team/:teamMemberId",
   verifyToken,
+  upload.single("team"),
   checkRole("admin"),
   adminController.updateTeamMember
 );

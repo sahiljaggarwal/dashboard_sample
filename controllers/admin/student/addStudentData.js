@@ -5,7 +5,44 @@ async function addStudentData(req, res) {
     // Get the data from the request body
     const studentData = req.body;
     const student = req.file;
+    const profilePhoto = student;
+    if (!student) {
+      return res.status(200).json({
+        message: "Image is required",
+        success: true,
+      });
+    }
+    const fieldsToCheck = [
+      "firstName",
+      "lastName",
+      "fatherName",
+      "email",
+      "contactNo",
+      "pinCode",
+      "city",
+      "address",
+      "qualification",
+      "course",
+      "dob",
+      "paymentMethod",
+      "paymentDate",
+      "paymentTime",
+      "paymentAmount",
+    ];
 
+    const emptyFields = [];
+    for (const field of fieldsToCheck) {
+      if (!req.body[field]) {
+        emptyFields.push(field);
+      }
+    }
+    if (emptyFields.length > 0) {
+      return res.status(200).json({
+        message: "Please fill all the required fields",
+        emptyFields,
+        success: true,
+      });
+    }
     // const profilePhoto = req.file.filename;
     const data = {
       email: studentData.email,
@@ -26,17 +63,17 @@ async function addStudentData(req, res) {
       paymentTime: studentData.paymentTime,
       paymentAmount: studentData.paymentAmount,
     };
-    const result = await studentService.addStudentData(data, student);
+    const result = await studentService.addStudentData(data, profilePhoto);
     return res.status(201).json({
       message: "Student data uploaded successfully",
       // student,
       success: true,
     });
-  } catch (err) {
-    console.error("Error uploading student data:", err);
+  } catch (error) {
+    console.log("Error uploading student data:", error);
     return res
       .status(500)
-      .json({ error: "Internal server error", success: false });
+      .json({ message: "Internal server error", success: false });
   }
 }
 

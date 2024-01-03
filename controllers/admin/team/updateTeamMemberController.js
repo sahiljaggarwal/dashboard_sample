@@ -1,10 +1,13 @@
 const Team = require("../../../models/Team");
+const path = require("path");
+const fs = require("fs");
 
 async function deleteFile(filePath) {
   try {
     // Extract the relative path from the URL
     const relativePath = new URL(filePath).pathname;
     const fullPath = path.join(__dirname, "../../../", relativePath);
+    console.log("fullPath: ", fullPath);
     await fs.promises.unlink(fullPath);
     console.log("File deleted successfully:", filePath);
   } catch (error) {
@@ -17,10 +20,13 @@ async function updateTeamMember(req, res) {
   try {
     const teamMemberId = req.params.teamMemberId;
     const teamMemberData = req.body;
+    console.log("teamMemberData", teamMemberData);
+
     const team = req.file;
+    console.log("team: ", team);
     const teamMember = await Team.findByIdAndUpdate(
       teamMemberId,
-      teamMemberData,
+      { ...teamMemberData },
       { new: true }
     );
     if (!teamMember) {
@@ -29,7 +35,7 @@ async function updateTeamMember(req, res) {
     let teamOldPath = teamMember.profilePhoto;
     if (team) {
       try {
-        teamMember.profilePhoto = `http://localhost:4000/${team[0].path}`;
+        teamMember.profilePhoto = `http://localhost:4000/${team.path}`;
         if (teamOldPath) {
           await deleteFile(teamOldPath);
           console.log("Cover Picture Deleted SuccessFully");
