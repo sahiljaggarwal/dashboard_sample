@@ -45,6 +45,7 @@ async function updateTeamMember(req, res) {
         console.log("Error on Deleting Cover File");
       }
     }
+    await teamMember.save();
     return res.status(200).json({
       message: "Team Member Data Updated Successfully",
       success: true,

@@ -17,11 +17,12 @@ async function updateCourse(req, res) {
   try {
     const course = req.params.courseId;
     const updatedData = req.body;
-    const coverPicture = req.files.coverPicture;
+    const coverPicture = req.file;
 
     const result = await Course.findByIdAndUpdate(course, updatedData, {
       new: true,
     });
+    console.log("result: => ", result);
     if (!result) {
       return res.status(404).json({ message: "Course Not Found" });
     }
@@ -30,7 +31,7 @@ async function updateCourse(req, res) {
 
     if (coverPicture) {
       try {
-        result.coverPicture = `http://localhost:4000/${coverPicture[0].path}`;
+        result.coverPicture = `http://localhost:4000/${coverPicture.path}`;
         if (coverPicture) {
           await deleteFile(coverPictureOldPath);
           console.log("Cover Picture Deleted SuccessFully");
@@ -40,6 +41,8 @@ async function updateCourse(req, res) {
         console.log(error);
       }
     }
+    await result.save();
+    console.log("Course Updated Data ", result);
     return res
       .status(200)
       .json({ message: "Course Updated Succes", success: true });
