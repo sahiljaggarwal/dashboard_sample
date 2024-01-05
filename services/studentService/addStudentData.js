@@ -1,4 +1,13 @@
 const User = require("../../models/User");
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+const config = require("../../config/default");
+
+cloudinary.config({
+  cloud_name: config.cloud_name,
+  api_key: config.api_key,
+  api_secret: config.api_secret,
+});
 const Student = require("../../models/Student");
 
 async function addStudentData(data, profilePhoto) {
@@ -47,7 +56,7 @@ async function addStudentData(data, profilePhoto) {
     }
 
     // Create a new student record
-    const student = new Student({
+    const student = await new Student({
       email,
       firstName,
       lastName,
@@ -64,8 +73,28 @@ async function addStudentData(data, profilePhoto) {
       paymentTime,
       paymentMethod,
     });
-    if (student) {
-      student.profilePhoto = `http://localhost:4000/${profilePhoto}`;
+    // if (student) {
+    //   student.profilePhoto = `http://localhost:4000/${profilePhoto}`;
+    // }
+
+    const profilePhotoPath = profilePhoto.path;
+    if (profilePhoto) {
+      try {
+        const uploadResult = await cloudinary.uploader.upload(profilePhotoPath);
+        student.profilePhoto = uploadResult.secure_url;
+        console.log("Profile Photo Uploaded Successfully");
+      } catch (error) {
+        console.log("Error on Uploading Profile Photo");
+        console.log(error);
+      } finally {
+        try {
+          fs.unlinkSync(profilePhotoPath);
+          console.log("Profile Photo Deleted Successfully Locally");
+        } catch (error) {
+          console.log("Error on Deleting Profile Photo");
+          console.log(error);
+        }
+      }
     }
     await student.save();
 

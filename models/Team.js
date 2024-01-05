@@ -24,8 +24,7 @@ const teamSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    trim: true,
-    // unique: true,
+    // trim: true,
     validate: {
       validator: function (value) {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -37,7 +36,6 @@ const teamSchema = new mongoose.Schema({
   contactNo: {
     type: Number,
     required: true,
-    // unique: true,
     validate: {
       validator: function (value) {
         // Regular expression to validate the phone number format
