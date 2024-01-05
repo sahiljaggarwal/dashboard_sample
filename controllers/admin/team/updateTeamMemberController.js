@@ -28,10 +28,28 @@ async function updateTeamMember(req, res) {
   try {
     const teamMemberId = req.params.teamMemberId;
     const teamMemberData = req.body;
-    // console.log("teamMemberData", teamMemberData);
+
+    if (teamMemberData.email) {
+      const isEmailExist = await Team.findOne({ email: teamMemberData.email });
+      if (isEmailExist) {
+        return res
+          .status(400)
+          .json({ message: "Email Already Exist", success: true });
+      }
+    }
+
+    if (teamMemberData.contactNo) {
+      const isContactExist = await Team.findOne({
+        contactNo: teamMemberData.contactNo,
+      });
+      if (isContactExist) {
+        return res
+          .status(400)
+          .json({ message: "Contact Already Exist", success: true });
+      }
+    }
 
     const team = req.file;
-    // console.log("team: ", team);
     const teamMember = await Team.findByIdAndUpdate(
       teamMemberId,
       { ...teamMemberData },
@@ -40,19 +58,6 @@ async function updateTeamMember(req, res) {
     if (!teamMember) {
       return res.status(200).json({ message: "Team Member Not Found" });
     }
-    // let teamOldPath = teamMember.profilePhoto;
-    // if (team) {
-    //   try {
-    //     teamMember.profilePhoto = `http://localhost:4000/${team.path}`;
-    //     if (teamOldPath) {
-    //       await deleteFile(teamOldPath);
-    //       console.log("Cover Picture Deleted SuccessFully");
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //     console.log("Error on Deleting Cover File");
-    //   }
-    // }
 
     let oldTeamImagePublicId;
     if (teamMember.profilePhoto) {
