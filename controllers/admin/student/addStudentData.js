@@ -1,5 +1,6 @@
 const studentService = require("../../../services/studentService");
-
+const Student = require("../../../models/Student");
+const fs = require("fs");
 async function addStudentData(req, res) {
   try {
     // Get the data from the request body
@@ -42,6 +43,41 @@ async function addStudentData(req, res) {
         emptyFields,
         success: true,
       });
+    }
+
+    const isEmailExist = await Student.findOne({ email: studentData.email });
+    const isContactNo = await Student.findOne({
+      contactNo: studentData.contactNo,
+    });
+
+    if (isEmailExist) {
+      if (profilePhoto) {
+        try {
+          const profilePhotoPath = profilePhoto.path;
+          fs.unlinkSync(profilePhotoPath);
+          console.log("Student Image Deleted Successfully From Locally");
+        } catch (error) {
+          console.log("Student Image Deleted Successfully From Locally");
+          console.log(error);
+        }
+      }
+      return res
+        .status(200)
+        .json({ message: "Email already exists", success: true });
+    }
+    if (isContactNo) {
+      if (profilePhoto) {
+        try {
+          const profilePhotoPath = profilePhoto.path;
+          fs.unlinkSync(profilePhotoPath);
+        } catch (error) {
+          console.log("Student Image Deleted Successfully From Locally");
+          console.log(error);
+        }
+      }
+      return res
+        .status(200)
+        .json({ message: "Contact No. already exists", success: true });
     }
     // const profilePhoto = req.file.filename;
     const data = {

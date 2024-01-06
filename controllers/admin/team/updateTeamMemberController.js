@@ -10,46 +10,57 @@ cloudinary.config({
   api_secret: config.api_secret,
 });
 
-// async function deleteFile(filePath) {
-//   try {
-//     // Extract the relative path from the URL
-//     const relativePath = new URL(filePath).pathname;
-//     const fullPath = path.join(__dirname, "../../../", relativePath);
-//     console.log("fullPath: ", fullPath);
-//     await fs.promises.unlink(fullPath);
-//     console.log("File deleted successfully:", filePath);
-//   } catch (error) {
-//     console.error("Error deleting file:", error);
-//     throw error;
-//   }
-// }
-
 async function updateTeamMember(req, res) {
+  console.log("CONTROLLER IS RUNNING");
   try {
     const teamMemberId = req.params.teamMemberId;
     const teamMemberData = req.body;
-
-    if (teamMemberData.email) {
-      const isEmailExist = await Team.findOne({ email: teamMemberData.email });
-      if (isEmailExist) {
-        return res
-          .status(400)
-          .json({ message: "Email Already Exist", success: true });
-      }
-    }
-
-    if (teamMemberData.contactNo) {
-      const isContactExist = await Team.findOne({
-        contactNo: teamMemberData.contactNo,
-      });
-      if (isContactExist) {
-        return res
-          .status(400)
-          .json({ message: "Contact Already Exist", success: true });
-      }
-    }
-
     const team = req.file;
+    const { email, contactNo } = teamMemberData;
+    const existingTeamMemberEmail = await Team.findOne({
+      email,
+      _id: { $ne: teamMemberId },
+    });
+
+    const existingTeamMemberContactNo = await Team.findOne({
+      email,
+      contactNo,
+      _id: { $ne: teamMemberId },
+    });
+
+    if (existingTeamMemberEmail) {
+      if (team) {
+        try {
+          const ImagePath = team.path;
+          fs.unlinkSync(ImagePath);
+          console.log("Team Image Deleted");
+        } catch (error) {
+          console.log("Error Deleteing Team Image From Local");
+          console.log(error);
+        }
+      }
+      return res.status(200).json({
+        message: "Email is already in use by another user",
+        success: true,
+      });
+    }
+    if (existingTeamMemberContactNo) {
+      if (team) {
+        try {
+          const ImagePath = team.path;
+          fs.unlinkSync(ImagePath);
+          console.log("Team Image Deleted");
+        } catch (error) {
+          console.log("Error Deleteing Team Image From Local");
+          console.log(error);
+        }
+      }
+      return res.status(200).json({
+        message: "Contact No. is already in use by another user",
+        success: true,
+      });
+    }
+
     const teamMember = await Team.findByIdAndUpdate(
       teamMemberId,
       { ...teamMemberData },

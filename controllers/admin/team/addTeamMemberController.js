@@ -64,29 +64,37 @@ async function addTeamMember(req, res) {
       contactNo: contactNo,
     });
     if (isExistingEmail) {
+      if (team) {
+        try {
+          const teamImagePath = team.path;
+          fs.unlinkSync(teamImagePath);
+          console.log("Team Image Deleted Successfully");
+        } catch (error) {
+          console.log("Team Image Deleted Error");
+          console.log(error);
+        }
+      }
       return res
         .status(200)
         .json({ message: "Email Already Registered", success: true });
     }
     if (isExistingContact) {
+      if (team) {
+        try {
+          const teamImagePath = team.path;
+          fs.unlinkSync(teamImagePath);
+          console.log("Team Image Deleted Successfully");
+        } catch (error) {
+          console.log("Team Image Deleted Error");
+          console.log(error);
+        }
+      }
       return res
         .status(200)
         .json({ message: "Contact Already Registered", success: true });
     }
     const savedMember = await new Team(memberData);
 
-    // console.log("Team: ", team);
-    // if (team) {
-    //   savedMember.profilePhoto = `http://localhost:4000/${team.path}`;
-    //   await savedMember.save();
-    //   return res.status(201).json({
-    //     message: "Member Add Successfully",
-    //     success: true,
-    //     savedMember,
-    //   });
-    // } else {
-    //   return res.status(400).json({ message: "Profile Photo is required" });
-    // }
     const teamImagePath = team.path;
     if (team) {
       try {
