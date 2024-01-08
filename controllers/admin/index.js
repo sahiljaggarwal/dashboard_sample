@@ -1,8 +1,52 @@
-const {createUser, deleteUserById, getAllUserProfiles, updateUser, getUserById, searchUser} = require('./user')
-const {addStudentData, updateStudentData, getAllStudentsData, getStudentDataById, getRoundThumbnail, getFullImage, deleteStudentData, searchStudent} =  require('./student/')
-const {addPortfolioController, getPortfoliosController, getPortfolioByIdController, deletePortfolioController, updatePortfolioController, searchPortfolio} = require('./portfolio')
-const {addTeamMember,getTeamList, getTeamMemberById, deleteTeamMember, updateTeamMember, searchTeamMember} = require('./team')
-const {addCourse, getAllCourse, getCourseById, updateCourse, deleteCourse} = require('./course')
+const {
+  createUser,
+  deleteUserById,
+  getAllUserProfiles,
+  updateUser,
+  getUserById,
+  searchUser,
+} = require("./user");
+const {
+  addStudentData,
+  updateStudentData,
+  getAllStudentsData,
+  getStudentDataById,
+  getRoundThumbnail,
+  getFullImage,
+  deleteStudentData,
+  searchStudent,
+} = require("./student/");
+const {
+  addPortfolioController,
+  getPortfoliosController,
+  getPortfolioByIdController,
+  deletePortfolioController,
+  updatePortfolioController,
+  searchPortfolio,
+} = require("./portfolio");
+const {
+  addTeamMember,
+  getTeamList,
+  getTeamMemberById,
+  deleteTeamMember,
+  updateTeamMember,
+  searchTeamMember,
+} = require("./team");
+const {
+  addCourse,
+  getAllCourse,
+  getCourseById,
+  updateCourse,
+  deleteCourse,
+} = require("./course");
+const {
+  getCertificates,
+  createCertificate,
+  updateCertificate,
+  deleteCertificate,
+  getCertificateById,
+  getStudentDataForCertificate,
+} = require("./certificate");
 
 module.exports = {
   // Users
@@ -18,7 +62,7 @@ module.exports = {
   updateStudentData,
   deleteStudentData,
   getAllStudentsData,
-  getStudentDataById, 
+  getStudentDataById,
   getRoundThumbnail,
   getFullImage,
   searchStudent,
@@ -30,7 +74,7 @@ module.exports = {
   deletePortfolioController,
   updatePortfolioController,
 
-  // Team  
+  // Team
   addTeamMember,
   getTeamList,
   getTeamMemberById,
@@ -44,5 +88,13 @@ module.exports = {
   getAllCourse,
   getCourseById,
   updateCourse,
-  deleteCourse
+  deleteCourse,
+
+  // certificates
+  getCertificates,
+  createCertificate,
+  updateCertificate,
+  deleteCertificate,
+  getCertificateById,
+  getStudentDataForCertificate,
 };
