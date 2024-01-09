@@ -2,8 +2,10 @@ const Certificate = require("../../../models/Certificate");
 const Student = require("../../../models/Student");
 
 async function getStudentDataForCertificate(req, res) {
+  console.log("Controller is running");
   try {
     const studentId = req.params.studentId;
+    console.log("studentId: ", studentId);
     const student = await Student.findOne({ _id: studentId });
     if (!student || student.length === 0) {
       return res
@@ -45,9 +47,6 @@ async function getStudentDataForCertificate(req, res) {
       coursetype,
       latestCertificate ? latestCertificate.certificateId : undefined
     );
-    console.log("latest certificate: ", latestCertificate);
-    console.log("Certificate Id: ", certificateId);
-    console.log("course type: ", coursetype);
 
     const studentData = {
       name: `${student.firstName} ${student.lastName}`,
@@ -74,7 +73,11 @@ function formatDateOfBirth(dob) {
 }
 
 function generateCertificateId(dobFormatted, coursetype, currentCertificateId) {
-  const number = currentCertificateId.split("-").pop();
+  console.log("currentCertificateId: ", currentCertificateId);
+  // const number = currentCertificateId.split("-").pop();
+  const number = currentCertificateId
+    ? currentCertificateId.split("-").pop()
+    : "";
   const singleId = number;
   const match = singleId.match(/\d+/); // Match one or more digits
   const extractedNumber = match ? match[0] : null; // Extract the matched digits or return null

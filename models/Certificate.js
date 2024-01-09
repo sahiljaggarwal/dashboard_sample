@@ -19,6 +19,7 @@ const certificateSchema = new mongoose.Schema({
       "Backend Development",
       "UI/UX Development",
       "Mobile App Development",
+      "FullStack Development",
     ],
     required: true,
   },
