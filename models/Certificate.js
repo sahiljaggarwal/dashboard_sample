@@ -17,7 +17,7 @@ const certificateSchema = new mongoose.Schema({
     enum: [
       "Frontend Development",
       "Backend Development",
-      "UI/UX",
+      "UI/UX Development",
       "Mobile App Development",
     ],
     required: true,
