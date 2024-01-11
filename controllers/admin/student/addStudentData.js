@@ -44,6 +44,16 @@ async function addStudentData(req, res) {
         success: true,
       });
     }
+    if (studentData.contactNo) {
+      if (studentData.contactNo.length !== 10) {
+        return res
+          .status(200)
+          .json({
+            message: "Contact No. should be of 10 digits",
+            success: true,
+          });
+      }
+    }
 
     const isEmailExist = await Student.findOne({ email: studentData.email });
     const isContactNo = await Student.findOne({

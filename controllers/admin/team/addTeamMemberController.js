@@ -57,6 +57,44 @@ async function addTeamMember(req, res) {
         .status(400)
         .json({ message: "Please fill all the required fields", emptyFields });
     }
+    if (contactNo) {
+      if (contactNo.length !== 10) {
+        return res.status(200).json({
+          message: "Please provide a valid contact number",
+          success: true,
+        });
+      }
+    }
+
+    const validWorkRoles = [
+      "UI/UX Developer",
+      "FullStack Developer",
+      "Frontend Developer",
+      "Backend Developer",
+      "Mobile App Developer",
+    ];
+
+    if (!validWorkRoles.includes(workRole)) {
+      try {
+        fs.unlink(team.path, (err) => {
+          if (err) {
+            console.log("Team Image Deleted Error");
+            console.log(err);
+          } else {
+            console.log("Team Image Deleted Successfully");
+          }
+        });
+      } catch (error) {
+        console.log("Team Image Deleted Error");
+        console.log(error);
+      }
+      return res.status(200).json({
+        message: "Invalid workRole. Please provide a valid workRole.",
+        validWorkRoles: validWorkRoles,
+        success: true,
+      });
+    }
+
     const isExistingEmail = await Team.findOne({
       email: email,
     });
@@ -107,8 +145,14 @@ async function addTeamMember(req, res) {
         console.log(error);
       } finally {
         try {
-          fs.unlinkSync(teamImagePath);
-          console.log("Team Image Deleted Successfully ");
+          fs.unlinkSync(teamImagePath, (err) => {
+            if (err) {
+              console.log("Team Image Deleting Error");
+              console.log(err);
+            } else {
+              console.log("Team Image Deleted Successfully");
+            }
+          });
         } catch (error) {
           console.log("Team Image Deleting Error");
           console.log(error);
