@@ -31,7 +31,7 @@ router.delete(
   adminController.deleteCertificate
 );
 router.get(
-  "/:certificateId",
+  "/verify/certificate",
   verifyToken,
   checkRole("admin"),
   adminController.getCertificateById
