@@ -30,10 +30,10 @@ router.delete(
   checkRole("admin"),
   adminController.deleteCertificate
 );
-router.get(
+router.post(
   "/verify/certificate",
-  verifyToken,
-  checkRole("admin"),
+  // verifyToken,
+  // checkRole("admin"),
   adminController.getCertificateById
 );
 
