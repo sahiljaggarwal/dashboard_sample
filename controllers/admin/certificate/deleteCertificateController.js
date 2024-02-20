@@ -2,7 +2,8 @@ const Certificate = require("../../../models/Certificate");
 
 async function deleteCertificate(req, res) {
   try {
-    const certificateId = req.params;
+    const { certificateId } = req.params;
+    console.log("id ", certificateId);
     const deleteCertificate = await Certificate.findByIdAndRemove(
       certificateId
     );

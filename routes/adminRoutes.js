@@ -335,11 +335,6 @@ router.get(
 router.delete(
   "/portfolio/:portfolioId",
   verifyToken,
-  upload.fields([
-    { name: "coverImage", maxCount: 1 },
-    { name: "featuredImage", maxCount: 1 },
-    { name: "portfolio", maxCount: 1 },
-  ]),
   checkRole("admin"),
   adminController.deletePortfolioController
 );

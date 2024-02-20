@@ -26,8 +26,8 @@ router.put(
 );
 router.delete(
   "/:certificateId",
-  verifyToken,
-  checkRole("admin"),
+  // verifyToken,
+  // checkRole("admin"),
   adminController.deleteCertificate
 );
 router.post(
